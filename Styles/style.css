@@ -231,7 +231,7 @@ h1 {
     height: 50vh;
 }
 
-.hero nav .mobilemenubody.is-open {
+.hero nav .mobilemenu[open] > .mobilemenubody {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -267,7 +267,7 @@ h1 {
     z-index: 9999;
 }
 
-.hero nav .mobilemenubody.is-open {
+.hero nav .mobilemenu[open] > .mobilemenubody {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -2905,12 +2905,20 @@ img {
     min-height: 48px;
     padding: 0;
     place-items: center;
-    border: 0;
-    background: transparent;
+    list-style: none;
     color: inherit;
     font: inherit;
     font-size: 26px;
     cursor: pointer;
+}
+
+.hero nav .mobile-menu-toggle::-webkit-details-marker {
+    display: none;
+}
+
+.hero nav .mobile-menu-toggle:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
 }
 
 .hero h1 {
@@ -3643,13 +3651,15 @@ img {
         margin: 0 !important;
     }
 
-    .hero nav .mobilemenubody:not(.is-open) {
+    .hero nav .mobilemenu:not([open]) > .mobilemenubody {
+        display: none;
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
     }
 
-    .hero nav .mobilemenubody.is-open {
+    .hero nav .mobilemenu[open] > .mobilemenubody {
+        display: block;
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
@@ -3926,12 +3936,10 @@ img {
 }
 
 .hero nav .mobile-menu-toggle {
+    box-sizing: border-box;
     width: 54px;
     height: 54px;
-    border: 0;
     border-radius: 0;
-    background: transparent !important;
-    box-shadow: none;
     color: #fff;
     font-size: 30px;
 }
@@ -3942,12 +3950,10 @@ img {
 }
 
 .hero nav .mobile-menu-toggle:hover {
-    background: transparent !important;
     color: var(--main-color);
 }
 
-.hero nav .mobilemenubody,
-.hero nav .mobilemenubody:not(.is-open) {
+.hero nav .mobilemenubody {
     display: block;
     top: calc(100% + 10px);
     right: clamp(16px, 5vw, 40px);
@@ -3958,13 +3964,13 @@ img {
     box-shadow: 0 18px 46px rgba(0, 0, 0, 0.3);
 }
 
-.hero nav .mobilemenubody:not(.is-open) {
+.hero nav .mobilemenu:not([open]) > .mobilemenubody {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
 }
 
-.hero nav .mobilemenubody.is-open {
+.hero nav .mobilemenu[open] > .mobilemenubody {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -4509,29 +4515,6 @@ body > .Footer {
 }
 
 @media (max-width: 760px) {
-    .mobile-scroll-reveal {
-        opacity: 0;
-        transform: translateY(26px) scale(0.985);
-        transition: opacity 650ms ease, transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1);
-    }
-
-    .mobile-scroll-reveal.is-visible {
-        opacity: 1;
-        transform: none;
-    }
-
-    .RedVelvet.mobile-scroll-reveal .new-badge {
-        opacity: 0;
-        transform: scale(0.72) rotate(-5deg);
-        transition: opacity 300ms ease, transform 450ms cubic-bezier(0.2, 0.7, 0.2, 1);
-    }
-
-    .RedVelvet.mobile-scroll-reveal.is-visible .new-badge {
-        opacity: 1;
-        transform: scale(1) rotate(-5deg);
-        transition-delay: 250ms;
-    }
-
     .donnate > div:nth-of-type(1) {
         grid-template-columns: minmax(0, 1fr) 80px;
         gap: 12px;
@@ -4575,17 +4558,6 @@ body > .Footer {
         right: 0;
         padding: 8px 11px;
         font-size: 11px;
-    }
-}
-
-@media (max-width: 760px) and (prefers-reduced-motion: reduce) {
-    .mobile-scroll-reveal,
-    .mobile-scroll-reveal.is-visible,
-    .RedVelvet.mobile-scroll-reveal .new-badge,
-    .RedVelvet.mobile-scroll-reveal.is-visible .new-badge {
-        opacity: 1;
-        transform: none;
-        transition: none;
     }
 }
 
@@ -5181,5 +5153,44 @@ body > .Footer {
     .donnate .cakes .Item1 h4 {
         font-size: clamp(14px, 3.8vw, 16px);
         line-height: 1.25;
+    }
+}
+
+@media (max-width: 760px) {
+    .Season {
+        box-sizing: border-box;
+        width: 100%;
+        padding-inline: 16px;
+    }
+
+    .Season h2 {
+        width: auto;
+        margin: 0;
+    }
+
+    .Season p {
+        width: min(100%, 720px);
+        margin: 20px auto 36px;
+    }
+
+    .Season .contain {
+        width: min(100%, 1120px);
+        margin: 0 auto;
+    }
+
+    .Season .contain .card {
+        min-height: 220px;
+        background-size: cover;
+    }
+}
+
+@media (max-width: 600px) {
+    .Season .contain {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .Season .contain .card {
+        width: 100%;
     }
 }
